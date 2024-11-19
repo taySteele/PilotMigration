@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2022/09/ProvisioningSchema">
+  <pnp:Preferences Generator="PnP.Framework, Version=1.17.30.0, Culture=neutral, PublicKeyToken=0d501f89f11b748c" />
+  <pnp:Templates ID="CONTAINER-TEMPLATE-0F3F5063EB6C441E87F133153ACA6165">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-0F3F5063EB6C441E87F133153ACA6165" Version="1" BaseSiteTemplate="GROUP#0" Scope="RootSite">
+      <pnp:WebSettings RequestAccessEmail="" NoCrawl="false" WelcomePage="SitePages/Home.aspx" SiteLogo="/teams/str_community_template/_api/groupservice/getgroupimage?id='bd10fee7-4f6c-4868-936c-c330e7907935'" AlternateCSS="" MasterPageUrl="{masterpagecatalog}/seattle.master" CustomMasterPageUrl="{masterpagecatalog}/seattle.master" CommentsOnSitePagesDisabled="false" QuickLaunchEnabled="true" MembersCanShare="true" SearchScope="DefaultScope" SearchBoxInNavBar="Inherit" />
+      <pnp:SiteSettings AllowDesigner="true" SearchBoxInNavBar="Inherit" SearchCenterUrl="" />
+      <pnp:RegionalSettings AdjustHijriDays="0" AlternateCalendarType="None" CalendarType="Gregorian" Collation="25" FirstDayOfWeek="Monday" FirstWeekOfYear="0" LocaleId="5129" ShowWeeks="false" Time24="false" TimeZone="17" WorkDayEndHour="5:00PM" WorkDays="62" WorkDayStartHour="8:00AM" />
+      <pnp:Navigation AddNewPagesToNavigation="true" CreateFriendlyUrlsForNewPages="true">
+        <pnp:GlobalNavigation NavigationType="Structural">
+          <pnp:StructuralNavigation RemoveExistingNodes="false" />
+        </pnp:GlobalNavigation>
+        <pnp:CurrentNavigation NavigationType="StructuralLocal">
+          <pnp:StructuralNavigation RemoveExistingNodes="true">
+            <pnp:NavigationNode Title="Home" Url="{site}" />
+            <pnp:NavigationNode Title="← Previous" Url="http://linkless.header/" IsExternal="true" />
+            <pnp:NavigationNode Title="Calendar" Url="{site}/Lists/Calendar/AllItems.aspx" />
+            <pnp:NavigationNode Title="Community Documents" Url="{site}/Community/Forms/AllItems.aspx" />
+            <pnp:NavigationNode Title="Community Images" Url="{site}/CommunityImages/Forms/AllItems.aspx" />
+            <pnp:NavigationNode Title="Community Members" Url="{site}/Members/Forms/AllItems.aspx" />
+            <pnp:NavigationNode Title="Frequently Asked Questions" Url="{site}/Lists/FAQ/AllItems.aspx" />
+            <pnp:NavigationNode Title="Links" Url="{site}/Lists/Links/AllItems.aspx" />
+            <pnp:NavigationNode Title="Meeting Documents" Url="{site}/MeetingDocuments/Forms/AllItems.aspx" />
+            <pnp:NavigationNode Title="Site contents" Url="{site}/_layouts/15/viewlsts.aspx" IsExternal="true" />
+            <pnp:NavigationNode Title="Recent" Url="" IsExternal="true" />
+          </pnp:StructuralNavigation>
+        </pnp:CurrentNavigation>
+      </pnp:Navigation>
+      <pnp:Features>
+        <pnp:SiteFeatures>
+          <pnp:Feature ID="da2e115b-07e4-49d9-bb2c-35e93bb9fca9" />
+          <pnp:Feature ID="371a9b45-6923-41d8-9f5d-6c4506e51b2e" />
+          <pnp:Feature ID="5b79b49a-2da6-4161-95bd-7375c1995ef9" />
+          <pnp:Feature ID="2fcd5f8a-26b7-4a6a-9755-918566dba90a" />
+          <pnp:Feature ID="063c26fa-3ccc-4180-8a84-b6f98e991df3" />
+          <pnp:Feature ID="5bccb9a4-b903-4fd1-8620-b795fa33c9ba" />
+          <pnp:Feature ID="6e1e5426-2ebd-4871-8027-c5ca86371ead" />
+          <pnp:Feature ID="8a4b8de2-6fd8-41e9-923c-c7c3c00f8295" />
+          <pnp:Feature ID="b50e3104-6812-424f-a011-cc90e6327318" />
+          <pnp:Feature ID="d28fa327-96ef-445e-8019-d62455a5630d" />
+          <pnp:Feature ID="4bcccd62-dcaf-46dc-a7d4-e38277ef33f4" />
+          <pnp:Feature ID="3bae86a2-776d-499d-9db8-fa4cdc7884f8" />
+          <pnp:Feature ID="7094bd89-2cfe-490a-8c7e-fbace37b4a34" />
+        </pnp:SiteFeatures>
+        <pnp:WebFeatures>
+          <pnp:Feature ID="f151bb39-7c3b-414f-bb36-6bf18872052f" />
+          <pnp:Feature ID="992f7f2f-1a54-4fb1-a29d-aca651e10c40" />
+          <pnp:Feature ID="65a86d9e-d9e0-493d-b877-f09550efdee1" />
+        </pnp:WebFeatures>
+      </pnp:Features>
+      <pnp:ClientSidePages>
+        <pnp:ClientSidePage PromoteAsNewsArticle="false" PromoteAsTemplate="false" Overwrite="true" Layout="Home" EnableComments="false" Title="Home" ThumbnailUrl="" PageName="Home.aspx">
+          <pnp:Header Type="Default" LayoutType="FullWidthImage" ShowTopicHeader="false" ShowPublishDate="false" ShowBackgroundGradient="false" TopicHeader="" AlternativeText="" Authors="" AuthorByLineId="-1" />
+          <pnp:Sections>
+            <pnp:Section Order="1" Type="OneColumnVerticalSection" VerticalSectionEmphasis="Neutral">
+              <pnp:Controls>
+                <pnp:CanvasControl WebPartType="Text" ControlId="b2a89eff-1593-4688-ae4a-1d7026ac78f0" Order="1" Column="1">
+                  <pnp:CanvasControlProperties>
+                    <pnp:CanvasControlProperty Key="Text" Value="&lt;h4 class=&quot;headingSpacingAbove headingSpacingBelow&quot;&gt;Welcome to [Site Name]&lt;/h4&gt;&lt;p class=&quot;noSpacingAbove spacingBelow&quot; data-text-type=&quot;withSpacing&quot;&gt;Documentation pertaining to [Business Activity]&lt;/p&gt;" />
+                  </pnp:CanvasControlProperties>
+                </pnp:CanvasControl>
+                <pnp:CanvasControl WebPartType="List" JsonControlData="{&quot;id&quot;: &quot;f92bf067-bc19-489e-a556-7fe95f508720&quot;, &quot;instanceId&quot;: &quot;15ab9690-35e8-4eb9-8b99-a41bc862e432&quot;, &quot;title&quot;: &quot;List&quot;, &quot;description&quot;: &quot;Display a list from this site.&quot;, &quot;dataVersion&quot;: &quot;1.0&quot;, &quot;properties&quot;: {&quot;isDocumentLibrary&quot;:false,&quot;selectedListId&quot;:&quot;{listid:Calendar}&quot;,&quot;selectedListUrl&quot;:&quot;{site}/Lists/Calendar&quot;,&quot;webRelativeListUrl&quot;:&quot;/Lists/Calendar&quot;,&quot;webpartHeightKey&quot;:4,&quot;selectedViewId&quot;:&quot;{viewid:Calendar,Calendar}&quot;}, &quot;serverProcessedContent&quot;: {&quot;htmlStrings&quot;:{},&quot;searchablePlainTexts&quot;:{&quot;listTitle&quot;:&quot;Calendar&quot;},&quot;imageSources&quot;:{},&quot;links&quot;:{}}, &quot;dynamicDataPaths&quot;: {}, &quot;dynamicDataValues&quot;: {&quot;filterBy&quot;:{}}}" ControlId="f92bf067-bc19-489e-a556-7fe95f508720" Order="2" Column="1" />
+                <pnp:CanvasControl WebPartType="QuickLinks" JsonControlData="{&quot;id&quot;: &quot;c70391ea-0b10-4ee9-b2b4-006d3fcad0cd&quot;, &quot;instanceId&quot;: &quot;1f33a221-1504-4936-9bf9-62f4b9025fd5&quot;, &quot;title&quot;: &quot;Quick links&quot;, &quot;description&quot;: &quot;Show a collection of links to content such as documents, images, videos, and more in a variety of layouts with options for icons, images, and audience targeting.&quot;, &quot;dataVersion&quot;: &quot;2.3&quot;, &quot;properties&quot;: {&quot;items&quot;:[{&quot;sourceItem&quot;:{&quot;guids&quot;:{&quot;siteId&quot;:&quot;{sitecollectionid}&quot;,&quot;webId&quot;:&quot;{siteid}&quot;,&quot;listId&quot;:&quot;{listid:Site Pages}&quot;,&quot;uniqueId&quot;:&quot;0d168546-6e0d-4c87-bdbb-079ca2076588&quot;},&quot;itemType&quot;:0,&quot;fileExtension&quot;:&quot;.ASPX&quot;,&quot;progId&quot;:null},&quot;thumbnailType&quot;:2,&quot;id&quot;:3,&quot;description&quot;:&quot;&quot;,&quot;fabricReactIcon&quot;:{&quot;iconName&quot;:&quot;webappbuildermodule&quot;},&quot;altText&quot;:&quot;&quot;,&quot;rawPreviewImageMinCanvasWidth&quot;:32767},{&quot;sourceItem&quot;:{&quot;guids&quot;:{&quot;siteId&quot;:&quot;{sitecollectionid}&quot;,&quot;webId&quot;:&quot;{siteid}&quot;,&quot;listId&quot;:&quot;{listid:Form Templates}&quot;,&quot;uniqueId&quot;:&quot;{{viewid:Form Templates,All Forms}}&quot;},&quot;itemType&quot;:2,&quot;fileExtension&quot;:&quot;&quot;,&quot;progId&quot;:&quot;&quot;},&quot;thumbnailType&quot;:2,&quot;id&quot;:2,&quot;description&quot;:&quot;&quot;,&quot;fabricReactIcon&quot;:{&quot;iconName&quot;:&quot;officestorelogo&quot;},&quot;altText&quot;:&quot;&quot;,&quot;rawPreviewImageMinCanvasWidth&quot;:32767},{&quot;sourceItem&quot;:{&quot;guids&quot;:{&quot;siteId&quot;:&quot;{sitecollectionid}&quot;,&quot;webId&quot;:&quot;{siteid}&quot;,&quot;listId&quot;:&quot;{listid:Site Pages}&quot;,&quot;uniqueId&quot;:&quot;cfc2b600-b2bb-4b9a-b401-3ad6838af503&quot;},&quot;itemType&quot;:0,&quot;fileExtension&quot;:&quot;.ASPX&quot;,&quot;progId&quot;:null},&quot;thumbnailType&quot;:2,&quot;id&quot;:1,&quot;description&quot;:&quot;&quot;,&quot;altText&quot;:&quot;&quot;,&quot;rawPreviewImageMinCanvasWidth&quot;:32767,&quot;fabricReactIcon&quot;:{&quot;iconName&quot;:&quot;filetemplate&quot;}}],&quot;isMigrated&quot;:true,&quot;layoutId&quot;:&quot;CompactCard&quot;,&quot;shouldShowThumbnail&quot;:true,&quot;imageWidth&quot;:100,&quot;buttonLayoutOptions&quot;:{&quot;showDescription&quot;:false,&quot;buttonTreatment&quot;:2,&quot;iconPositionType&quot;:2,&quot;textAlignmentVertical&quot;:2,&quot;textAlignmentHorizontal&quot;:2,&quot;linesOfText&quot;:2},&quot;listLayoutOptions&quot;:{&quot;showDescription&quot;:false,&quot;showIcon&quot;:true},&quot;waffleLayoutOptions&quot;:{&quot;iconSize&quot;:1,&quot;onlyShowThumbnail&quot;:false},&quot;hideWebPartWhenEmpty&quot;:true,&quot;dataProviderId&quot;:&quot;QuickLinks&quot;,&quot;webId&quot;:&quot;{siteid}&quot;,&quot;siteId&quot;:&quot;{sitecollectionid}&quot;,&quot;Title&quot;:&quot;Template Library&quot;,&quot;iconPicker&quot;:&quot;filetemplate&quot;}, &quot;serverProcessedContent&quot;: {&quot;htmlStrings&quot;:{},&quot;searchablePlainTexts&quot;:{&quot;title&quot;:&quot;Useful Links&quot;,&quot;items[0].title&quot;:&quot;Kotahi&quot;,&quot;items[1].title&quot;:&quot;Legacy Store&quot;,&quot;items[2].title&quot;:&quot;Template Library&quot;},&quot;imageSources&quot;:{&quot;items[1].rawPreviewImageUrl&quot;:&quot;https://{fqdn}{site}/_api/v2.1/sites/{fqdn},{sitecollectionid},{siteid}/items/da403d18-75b4-43d6-951b-242e201989f9/driveItem/thumbnails/0/c400x99999/content?prefer=noRedirect&quot;},&quot;links&quot;:{&quot;baseUrl&quot;:&quot;https://{fqdn}{site}&quot;,&quot;items[0].sourceItem.url&quot;:&quot;https://{fqdn}{site}/SitePages/CollabHome.aspx&quot;,&quot;items[1].sourceItem.url&quot;:&quot;https://{fqdn}{site}/FormServerTemplates/Forms/All Forms.aspx&quot;,&quot;items[2].sourceItem.url&quot;:&quot;https://{fqdn}{site}/SitePages/Home.aspx&quot;},&quot;componentDependencies&quot;:{&quot;layoutComponentId&quot;:&quot;706e33c8-af37-4e7b-9d22-6e5694d92a6f&quot;},&quot;customMetadata&quot;:{&quot;items[1].rawPreviewImageUrl&quot;:{&quot;fixedWidth&quot;:100,&quot;minCanvasWidth&quot;:32767}}}, &quot;dynamicDataPaths&quot;: {}, &quot;dynamicDataValues&quot;: {}}" ControlId="c70391ea-0b10-4ee9-b2b4-006d3fcad0cd" Order="1" Column="2" />
+                <pnp:CanvasControl WebPartType="QuickLinks" JsonControlData="{&quot;id&quot;: &quot;c70391ea-0b10-4ee9-b2b4-006d3fcad0cd&quot;, &quot;instanceId&quot;: &quot;ad2ca9d3-f972-47a7-a3ae-a9f273ada86d&quot;, &quot;title&quot;: &quot;Quick links&quot;, &quot;description&quot;: &quot;Show a collection of links to content such as documents, images, videos, and more in a variety of layouts with options for icons, images, and audience targeting.&quot;, &quot;dataVersion&quot;: &quot;2.3&quot;, &quot;properties&quot;: {&quot;items&quot;:[{&quot;sourceItem&quot;:{&quot;guids&quot;:{&quot;siteId&quot;:&quot;{sitecollectionid}&quot;,&quot;webId&quot;:&quot;{siteid}&quot;,&quot;listId&quot;:&quot;{listid:Site Pages}&quot;,&quot;uniqueId&quot;:&quot;cfc2b600-b2bb-4b9a-b401-3ad6838af503&quot;},&quot;itemType&quot;:0,&quot;fileExtension&quot;:&quot;.ASPX&quot;,&quot;progId&quot;:null},&quot;thumbnailType&quot;:2,&quot;id&quot;:1,&quot;description&quot;:&quot;&quot;,&quot;altText&quot;:&quot;&quot;,&quot;rawPreviewImageMinCanvasWidth&quot;:32767,&quot;fabricReactIcon&quot;:{&quot;iconName&quot;:&quot;statuscirclequestionmark&quot;}}],&quot;isMigrated&quot;:true,&quot;layoutId&quot;:&quot;CompactCard&quot;,&quot;shouldShowThumbnail&quot;:true,&quot;imageWidth&quot;:100,&quot;buttonLayoutOptions&quot;:{&quot;showDescription&quot;:false,&quot;buttonTreatment&quot;:2,&quot;iconPositionType&quot;:2,&quot;textAlignmentVertical&quot;:2,&quot;textAlignmentHorizontal&quot;:2,&quot;linesOfText&quot;:2},&quot;listLayoutOptions&quot;:{&quot;showDescription&quot;:false,&quot;showIcon&quot;:true},&quot;waffleLayoutOptions&quot;:{&quot;iconSize&quot;:1,&quot;onlyShowThumbnail&quot;:false},&quot;hideWebPartWhenEmpty&quot;:true,&quot;dataProviderId&quot;:&quot;QuickLinks&quot;,&quot;webId&quot;:&quot;{siteid}&quot;,&quot;siteId&quot;:&quot;{sitecollectionid}&quot;,&quot;Title&quot;:&quot;SharePoint Training&quot;,&quot;iconPicker&quot;:&quot;statuscirclequestionmark&quot;}, &quot;serverProcessedContent&quot;: {&quot;htmlStrings&quot;:{},&quot;searchablePlainTexts&quot;:{&quot;title&quot;:&quot;Need Help?&quot;,&quot;items[0].title&quot;:&quot;SharePoint Training&quot;},&quot;imageSources&quot;:{},&quot;links&quot;:{&quot;baseUrl&quot;:&quot;https://{fqdn}{site}&quot;,&quot;items[0].sourceItem.url&quot;:&quot;https://{fqdn}{site}/SitePages/Home.aspx&quot;},&quot;componentDependencies&quot;:{&quot;layoutComponentId&quot;:&quot;706e33c8-af37-4e7b-9d22-6e5694d92a6f&quot;}}, &quot;dynamicDataPaths&quot;: {}, &quot;dynamicDataValues&quot;: {}}" ControlId="c70391ea-0b10-4ee9-b2b4-006d3fcad0cd" Order="2" Column="2" />
+                <pnp:CanvasControl WebPartType="Custom" JsonControlData="{&quot;id&quot;: &quot;b519c4f1-5cf7-4586-a678-2f1c62cc175a&quot;, &quot;instanceId&quot;: &quot;29a0ad9f-39f5-4692-82d1-0b674bb56692&quot;, &quot;title&quot;: &quot;Recent documents&quot;, &quot;description&quot;: &quot;Display recent documents for the current user&quot;, &quot;dataVersion&quot;: &quot;1.1&quot;, &quot;properties&quot;: {&quot;showTitle&quot;:true,&quot;layoutId&quot;:&quot;listDocumentLayout&quot;,&quot;count&quot;:6,&quot;dataProviderId&quot;:&quot;recentDocuments&quot;}, &quot;serverProcessedContent&quot;: {&quot;htmlStrings&quot;:{},&quot;searchablePlainTexts&quot;:{&quot;title&quot;:&quot;Recent documents&quot;},&quot;imageSources&quot;:{},&quot;links&quot;:{},&quot;componentDependencies&quot;:{&quot;layoutComponentId&quot;:&quot;c6eb85d4-7fd2-4938-bfb8-5a899344ee86&quot;}}, &quot;dynamicDataPaths&quot;: {}, &quot;dynamicDataValues&quot;: {}}" ControlId="b519c4f1-5cf7-4586-a678-2f1c62cc175a" Order="3" Column="2" />
+              </pnp:Controls>
+            </pnp:Section>
+          </pnp:Sections>
+        </pnp:ClientSidePage>
+      </pnp:ClientSidePages>
+      <pnp:Header Layout="Standard" BackgroundEmphasis="Strong" />
+    </pnp:ProvisioningTemplate>
+  </pnp:Templates>
+</pnp:Provisioning>
