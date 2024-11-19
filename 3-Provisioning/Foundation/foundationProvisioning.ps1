@@ -8,7 +8,7 @@ $script:owners = "taylor.steele@vfog.net", "BernardineAdmin@vfogonline.onmicroso
 $script:themeName = "MPI Theme1 Green"
 $script:logFileFolderPath = $PSScriptRoot + "\Logs"
 $script:templateFolderPath = $PSScriptRoot + "\Templates"
-$script:logoFile = $PSScriptRoot + "\Logos\siteLogo.png"
+$script:logoFile = $PSScriptRoot + "\Logos\siteLogo.png" #testchanges 
 
 
 <# FUNCTIONS #>
