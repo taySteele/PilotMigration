@@ -29,7 +29,7 @@ Automated provisioning of ~100 sites from a csv file.
 * Log time to provision a new site.
 * Log time to create a document library.
 
-e..g 
+e.g.
 
 ### Define log.csv columns
 
@@ -38,8 +38,7 @@ Destination site address
 Log Level (Info, Warning, Error)
 Log Message
 Log Time
-
-
+Status (Provisioning, Complete)
 
 
 

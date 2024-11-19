@@ -1,7 +1,6 @@
 
 # Pilot Migration 
 
-
 ## Plan Tasks
 
 ## Define sites.csv columns
@@ -16,11 +15,6 @@ SiteType - (Communications or Teams)
 Template - (Standard SharePoint Site Template,Standard Teams Site Template,Hub Template,Project Site Template,Governance Site Template,Community Site Template)
 Batch
 SiteSensitivityLabel (Internal - Public,Internal - Private,External - Private)
-Status (Not Stated,Provisioning,Completed)
-
-
-
-
 
 ## Group into batches
 
