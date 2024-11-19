@@ -1,15 +1,8 @@
 SiteName,Shortcode,Description,HubName,HubAssociation,Template
-Communities,COM,,Communities Hub,,Hub Template
-Organisational,COM_ORG,"Welcome to Organisational Communities
+Pilot Communities,PIL_COM,,Communities Pilot Hub,,Hub Template
+Pilot Communities Second Hub,PIL_COM_SEC,"Welcome to Organisational Communities
 
-This page contains sites for the various Organisational Communities at MPI.",Organisational Hub,Communities Hub,Hub Template
-Records Reference Group,COM_ORG_RRG,"Welcome to Records Reference Group
+This page contains sites for the various Organisational Communities at MPI.",Pilot Communities Second Hub,Communities Pilot Hub,Hub Template
+Pilot Communities Site,PIL_COM_SEC_SITE,"Welcome to Records Reference Group
 
-Documentation pertaining to the Records Reference Group.",,Organisational Hub,Community Site Template
-Professional,COM_PRF,"
-Welcome to Professional Communities
-
-This page contains sites for the various Professional Communities at MPI.",Professional Hub,Communities Hub,Hub Template
-Social,COM_SOC,"Welcome to Social Communities
-
-This page contains sites for the various Social Communities at MPI.",Social Hub,Communities Hub,Hub Template
+Documentation pertaining to the Records Reference Group.",,Pilot Communities Second Hub,Community Site Template

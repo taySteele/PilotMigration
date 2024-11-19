@@ -1,0 +1,120 @@
+Script started at 
+14:06 - Starting remediation on Content Type Hub...
+14:06 - Removing content types on Content Type Hub...
+14:06 - Removed content types on Content Type Hub.
+14:06 - Removing columns on Content Type Hub...
+14:06 - Failed to delete Topic. Error: Site columns which are included in content types or on lists cannot be deleted. Please remove all instances of this site column prior to deleting it.
+14:06 - Removed columns on Content Type Hub.
+14:06 - Finished remediation on Content Type Hub.
+14:06 - Starting remediation on https://vfogonline.sharepoint.com/teams/COMMSPERMS04...
+14:06 - Starting remediation on list Calendar...
+14:06 - Finished remediation on list Calendar.
+14:06 - Starting remediation on list Community...
+14:07 - Failed to delete MPI Base Document. Error: You have to delete all the items in this folder before you can delete the folder.
+14:07 - Failed to delete MPI Word Document. Error: You have to delete all the items in this folder before you can delete the folder.
+14:07 - Failed to delete Email. Error: You have to delete all the items in this folder before you can delete the folder.
+14:07 - Failed to delete Migrated Document. Error: You have to delete all the items in this folder before you can delete the folder.
+14:07 - Failed to delete Migrated Email. Error: You have to delete all the items in this folder before you can delete the folder.
+14:07 - Failed to delete MPI Document Set. Error: You have to delete all the items in this folder before you can delete the folder.
+14:07 - Finished remediation on list Community.
+14:07 - Starting remediation on list Documents...
+14:07 - Failed to delete MPI Base Document. Error: You have to delete all the items in this folder before you can delete the folder.
+14:07 - Failed to delete MPI Word Document. Error: You have to delete all the items in this folder before you can delete the folder.
+14:07 - Failed to delete Email. Error: You have to delete all the items in this folder before you can delete the folder.
+14:07 - Failed to delete Migrated Document. Error: You have to delete all the items in this folder before you can delete the folder.
+14:07 - Failed to delete Migrated Email. Error: You have to delete all the items in this folder before you can delete the folder.
+14:07 - Finished remediation on list Documents.
+14:07 - Starting remediation on list FAQ...
+14:07 - Finished remediation on list FAQ.
+14:07 - Removing site content types on https://vfogonline.sharepoint.com/teams/COMMSPERMS04...
+14:07 - Removed site content types on https://vfogonline.sharepoint.com/teams/COMMSPERMS04.
+14:07 - Removing site columns on https://vfogonline.sharepoint.com/teams/COMMSPERMS04...
+14:07 - Failed to delete Topic. Error: Site columns which are included in content types or on lists cannot be deleted. Please remove all instances of this site column prior to deleting it.
+14:07 - Removed site columns on https://vfogonline.sharepoint.com/teams/COMMSPERMS04.
+14:07 - Finished remediation on https://vfogonline.sharepoint.com/teams/COMMSPERMS04.
+14:07 - Starting remediation on https://vfogonline.sharepoint.com/teams/COMMSPERMS02...
+14:07 - Starting remediation on list Calendar...
+14:07 - Finished remediation on list Calendar.
+14:07 - Starting remediation on list Community...
+14:07 - Failed to delete MPI Base Document. Error: You have to delete all the items in this folder before you can delete the folder.
+14:07 - Failed to delete MPI Word Document. Error: You have to delete all the items in this folder before you can delete the folder.
+14:07 - Failed to delete Email. Error: You have to delete all the items in this folder before you can delete the folder.
+14:07 - Failed to delete Migrated Document. Error: You have to delete all the items in this folder before you can delete the folder.
+14:07 - Failed to delete Migrated Email. Error: You have to delete all the items in this folder before you can delete the folder.
+14:07 - Failed to delete MPI Document Set. Error: You have to delete all the items in this folder before you can delete the folder.
+14:07 - Finished remediation on list Community.
+14:07 - Starting remediation on list Documents...
+14:07 - Failed to delete MPI Base Document. Error: You have to delete all the items in this folder before you can delete the folder.
+14:07 - Failed to delete MPI Word Document. Error: You have to delete all the items in this folder before you can delete the folder.
+14:07 - Failed to delete Email. Error: You have to delete all the items in this folder before you can delete the folder.
+14:07 - Failed to delete Migrated Document. Error: You have to delete all the items in this folder before you can delete the folder.
+14:07 - Failed to delete Migrated Email. Error: You have to delete all the items in this folder before you can delete the folder.
+14:07 - Finished remediation on list Documents.
+14:07 - Starting remediation on list FAQ...
+14:07 - Finished remediation on list FAQ.
+14:07 - Removing site content types on https://vfogonline.sharepoint.com/teams/COMMSPERMS02...
+14:08 - Removed site content types on https://vfogonline.sharepoint.com/teams/COMMSPERMS02.
+14:08 - Removing site columns on https://vfogonline.sharepoint.com/teams/COMMSPERMS02...
+14:08 - Failed to delete Topic. Error: Site columns which are included in content types or on lists cannot be deleted. Please remove all instances of this site column prior to deleting it.
+14:08 - Removed site columns on https://vfogonline.sharepoint.com/teams/COMMSPERMS02.
+14:08 - Finished remediation on https://vfogonline.sharepoint.com/teams/COMMSPERMS02.
+14:08 - Starting remediation on https://vfogonline.sharepoint.com/teams/COMMPERMS01...
+14:08 - Starting remediation on list Documents...
+14:08 - Finished remediation on list Documents.
+14:08 - Removing site content types on https://vfogonline.sharepoint.com/teams/COMMPERMS01...
+14:08 - Removed site content types on https://vfogonline.sharepoint.com/teams/COMMPERMS01.
+14:08 - Removing site columns on https://vfogonline.sharepoint.com/teams/COMMPERMS01...
+14:08 - Removed site columns on https://vfogonline.sharepoint.com/teams/COMMPERMS01.
+14:08 - Finished remediation on https://vfogonline.sharepoint.com/teams/COMMPERMS01.
+14:08 - Starting remediation on https://vfogonline.sharepoint.com/teams/COMMTRIM03...
+14:08 - Starting remediation on list Calendar...
+14:08 - Finished remediation on list Calendar.
+14:08 - Starting remediation on list Community...
+14:08 - Failed to delete MPI Base Document. Error: You have to delete all the items in this folder before you can delete the folder.
+14:08 - Failed to delete MPI Word Document. Error: You have to delete all the items in this folder before you can delete the folder.
+14:08 - Failed to delete Email. Error: You have to delete all the items in this folder before you can delete the folder.
+14:08 - Failed to delete Migrated Document. Error: You have to delete all the items in this folder before you can delete the folder.
+14:08 - Failed to delete Migrated Email. Error: You have to delete all the items in this folder before you can delete the folder.
+14:08 - Failed to delete MPI Document Set. Error: You have to delete all the items in this folder before you can delete the folder.
+14:08 - Finished remediation on list Community.
+14:08 - Starting remediation on list Documents...
+14:08 - Failed to delete MPI Base Document. Error: You have to delete all the items in this folder before you can delete the folder.
+14:08 - Failed to delete MPI Word Document. Error: You have to delete all the items in this folder before you can delete the folder.
+14:08 - Failed to delete Email. Error: You have to delete all the items in this folder before you can delete the folder.
+14:08 - Failed to delete Migrated Document. Error: You have to delete all the items in this folder before you can delete the folder.
+14:08 - Failed to delete Migrated Email. Error: You have to delete all the items in this folder before you can delete the folder.
+14:08 - Finished remediation on list Documents.
+14:08 - Starting remediation on list FAQ...
+14:08 - Finished remediation on list FAQ.
+14:08 - Removing site content types on https://vfogonline.sharepoint.com/teams/COMMTRIM03...
+14:08 - Removed site content types on https://vfogonline.sharepoint.com/teams/COMMTRIM03.
+14:08 - Removing site columns on https://vfogonline.sharepoint.com/teams/COMMTRIM03...
+14:08 - Failed to delete Topic. Error: Site columns which are included in content types or on lists cannot be deleted. Please remove all instances of this site column prior to deleting it.
+14:08 - Removed site columns on https://vfogonline.sharepoint.com/teams/COMMTRIM03.
+14:08 - Finished remediation on https://vfogonline.sharepoint.com/teams/COMMTRIM03.
+14:08 - Starting remediation on https://vfogonline.sharepoint.com/teams/COMMTRIM02...
+14:08 - Starting remediation on list Calendar...
+14:08 - Finished remediation on list Calendar.
+14:08 - Starting remediation on list Community...
+14:08 - Failed to delete MPI Base Document. Error: You have to delete all the items in this folder before you can delete the folder.
+14:08 - Failed to delete MPI Word Document. Error: You have to delete all the items in this folder before you can delete the folder.
+14:08 - Failed to delete Email. Error: You have to delete all the items in this folder before you can delete the folder.
+14:08 - Failed to delete Migrated Document. Error: You have to delete all the items in this folder before you can delete the folder.
+14:08 - Failed to delete Migrated Email. Error: You have to delete all the items in this folder before you can delete the folder.
+14:08 - Failed to delete MPI Document Set. Error: You have to delete all the items in this folder before you can delete the folder.
+14:08 - Finished remediation on list Community.
+14:08 - Starting remediation on list Documents...
+14:08 - Failed to delete MPI Base Document. Error: You have to delete all the items in this folder before you can delete the folder.
+14:08 - Failed to delete MPI Word Document. Error: You have to delete all the items in this folder before you can delete the folder.
+14:09 - Failed to delete Email. Error: You have to delete all the items in this folder before you can delete the folder.
+14:09 - Failed to delete Migrated Document. Error: You have to delete all the items in this folder before you can delete the folder.
+14:09 - Failed to delete Migrated Email. Error: You have to delete all the items in this folder before you can delete the folder.
+14:09 - Finished remediation on list Documents.
+14:09 - Starting remediation on list FAQ...
+14:09 - Finished remediation on list FAQ.
+14:09 - Removing site content types on https://vfogonline.sharepoint.com/teams/COMMTRIM02...
+14:09 - Removed site content types on https://vfogonline.sharepoint.com/teams/COMMTRIM02.
+14:09 - Removing site columns on https://vfogonline.sharepoint.com/teams/COMMTRIM02...
+14:09 - Failed to delete Topic. Error: Site columns which are included in content types or on lists cannot be deleted. Please remove all instances of this site column prior to deleting it.
+14:09 - Removed site columns on https://vfogonline.sharepoint.com/teams/COMMTRIM02.
+14:09 - Finished remediation on https://vfogonline.sharepoint.com/teams/COMMTRIM02.
