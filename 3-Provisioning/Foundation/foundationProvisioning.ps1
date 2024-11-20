@@ -259,31 +259,31 @@ function ProvisionSiteFromTemplate ($provSiteName, $provShortcode, $provDesc, $p
         }
         "Community Site Template" {
             $baseTemplate = "TeamSite"
-            $provSiteFullUrl = $baseURL + "/teams/" + $provShortcode
+            $provSiteFullUrl = $baseURL + "/Sites/" + $provShortcode
             $provTemplatePath = $templateFolderPath + "\pilotCommunity.xml"
             $teamsEnabled = $true
         }
         "Governance Site Template" {
             $baseTemplate = "TeamSite"
-            $provSiteFullUrl = $baseURL + "/teams/" + $provShortcode
+            $provSiteFullUrl = $baseURL + "/Sites/" + $provShortcode
             $provTemplatePath = $templateFolderPath + "\pilotGovernance.xml"
             $teamsEnabled = $false
         }
         "Project Site Template" {
             $baseTemplate = "TeamSite"
-            $provSiteFullUrl = $baseURL + "/teams/" + $provShortcode
+            $provSiteFullUrl = $baseURL + "/Sites/" + $provShortcode
             $provTemplatePath = $templateFolderPath + "\pilotProject.xml"
             $teamsEnabled = $true
         }
         "Standard SharePoint Site Template" {
             $baseTemplate = "TeamSite"
-            $provSiteFullUrl = $baseURL + "/teams/" + $provShortcode
+            $provSiteFullUrl = $baseURL + "/Sites/" + $provShortcode
             $provTemplatePath = $templateFolderPath + "\pilotStandard.xml"
             $teamsEnabled = $false
         }
         "Standard Teams Site Template" {
             $baseTemplate = "TeamSite"
-            $provSiteFullUrl = $baseURL + "/teams/" + $provShortcode
+            $provSiteFullUrl = $baseURL + "/Sites/" + $provShortcode
             $provTemplatePath = $templateFolderPath + "\pilotTeams.xml"
             $teamsEnabled = $true
         }
