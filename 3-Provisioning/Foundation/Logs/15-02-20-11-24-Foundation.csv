@@ -1,0 +1,4 @@
+"SiteName","ShortCode","Template","StartTime","FinishTime","TotalProvisioningTimeMinutes"
+"Pilot Communities","PIL_COM","Hub Template","15:02 20-11-24","15:03 20-11-24","1"
+"Pilot Communities Second Hub","PIL_COM_SEC","Hub Template","15:03 20-11-24","15:04 20-11-24","1"
+"Pilot Communities Site","PIL_COM_SEC_SITE","Community Site Template","15:04 20-11-24","15:05 20-11-24","1"
