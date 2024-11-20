@@ -254,12 +254,38 @@ function ProvisionSiteFromTemplate ($provSiteName, $provShortcode, $provDesc, $p
         "Hub Template" {
             $baseTemplate = "CommunicationSite"
             $provSiteFullUrl = $baseURL + "/Sites/" + $provShortcode
-            $provTemplatePath = $templateFolderPath + "\foundationHub.xml"
+            $provTemplatePath = $templateFolderPath + "\pilotHub.xml"
+            $teamsEnabled = $false
         }
         "Community Site Template" {
             $baseTemplate = "TeamSite"
             $provSiteFullUrl = $baseURL + "/teams/" + $provShortcode
-            $provTemplatePath = $templateFolderPath + "\foundationCommunity.xml"
+            $provTemplatePath = $templateFolderPath + "\pilotCommunity.xml"
+            $teamsEnabled = $true
+        }
+        "Governance Site Template" {
+            $baseTemplate = "TeamSite"
+            $provSiteFullUrl = $baseURL + "/teams/" + $provShortcode
+            $provTemplatePath = $templateFolderPath + "\pilotGovernance.xml"
+            $teamsEnabled = $false
+        }
+        "Project Site Template" {
+            $baseTemplate = "TeamSite"
+            $provSiteFullUrl = $baseURL + "/teams/" + $provShortcode
+            $provTemplatePath = $templateFolderPath + "\pilotProject.xml"
+            $teamsEnabled = $true
+        }
+        "Standard SharePoint Site Template" {
+            $baseTemplate = "TeamSite"
+            $provSiteFullUrl = $baseURL + "/teams/" + $provShortcode
+            $provTemplatePath = $templateFolderPath + "\pilotStandard.xml"
+            $teamsEnabled = $false
+        }
+        "Standard Teams Site Template" {
+            $baseTemplate = "TeamSite"
+            $provSiteFullUrl = $baseURL + "/teams/" + $provShortcode
+            $provTemplatePath = $templateFolderPath + "\pilotTeams.xml"
+            $teamsEnabled = $true
         }
     }
 
@@ -270,7 +296,7 @@ function ProvisionSiteFromTemplate ($provSiteName, $provShortcode, $provDesc, $p
     SiteConfiguration $provShortcode $provSiteFullUrl $provTemplate $provTemplatePath
 
     # Teamify site
-    if ($provTemplate -eq "Community Site Template") {
+    if ($teamsEnabled) {
         TeamifySite $provSiteFullUrl
     }
 
@@ -290,6 +316,7 @@ function ProvisionSiteFromTemplate ($provSiteName, $provShortcode, $provDesc, $p
 
     $siteDurationMinutes = $siteDuration.Minutes
 
+    # Write Summary to CSV File
     $script:csvData += [PSCustomObject]@{
         SiteName = $provSiteName
         ShortCode = $provShortcode
