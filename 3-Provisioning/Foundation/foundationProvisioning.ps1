@@ -199,16 +199,18 @@ function AssociateToHub ($newSiteFullUrl, $hubName, $hubAssoc) {
     }
 }
 
-function ShareGateCopyStructure ($provSourceSite, $newSiteFullUrl) {
+function ShareGateCopyStructure ($provSourceSite, $newSiteFullUrl, $provShortcode) {
     try {
         logOutput "   Copying list structure on $provShortcode..."
-        $listsRequired = $listsCsv | Where-Object {$_.SourceSite -eq $newSiteFullUrl}
+        $listsRequired = $listsCsv | Where-Object {$_.SourceSite -eq $provSourceSite -and $_.DestinationSite -eq $provShortcode}
+        $srcSite = Connect-Site -Url $provSourceSite -UserName $sgUsername -Password  $secureStringPassword
+        $dstSite = Connect-Site -Url $newSiteFullUrl -Browser
         foreach($list in $listsRequired) {
             $provListName = $list.LibraryName
             try {
                 logOutput "      Copying list $provListName on $provShortcode..."
                 $listStartTime = Get-Date -Format "HH:mm dd-MM-yy"
-                Copy-List -Name $provListName -SourceSite $provSourceSite -DestinationSite $newSiteFullUrl -NoContent  -NoSiteFeatures -NoWorkflows
+                Copy-List -Name $provListName -SourceSite $srcSite -DestinationSite $dstSite -NoContent  -NoSiteFeatures -NoWorkflows
                 $listFinishTime = Get-Date -Format "HH:mm dd-MM-yy"
                 $listDuration = New-TimeSpan -Start $listStartTime -End $listFinishTime
                 $listDurationMinutes = $listDuration.Minutes
@@ -340,7 +342,7 @@ function ProvisionSiteFromTemplate ($provSiteName, $provShortcode, $provDesc, $p
     AssociateToHub $provSiteFullUrl $provHub $provHubAssoc
 
     # SG Copy list structure
-    ShareGateCopyStructure $provSourceSiteUrl, $provSiteFullUrl
+    ShareGateCopyStructure $provSourceSiteUrl $provSiteFullUrl $provShortcode
 
     PostSharegateConfiguration
 
@@ -383,6 +385,12 @@ function ProvisionSites {
         logOutput "Failed to get csv data."
         exit
     }
+
+    # Prepare SG
+    Import-Module Sharegate
+    # Prompt the user to enter a password
+    $script:sgUsername = "wlgc3\piritahidemoadmin"
+    $script:secureStringPassword = Read-Host -Prompt "Enter the password for $sgUserName" -AsSecureString
 
     # Provision site
     foreach ($site in $csv) {

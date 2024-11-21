@@ -1,4 +1,5 @@
-SourceSite,DestinationSite,LibraryName,HubName
-,,,
-,,,
-,,,
+SourceSite,DestinationSite,LibraryName
+https://cohesiondemo-piritahi.intergen.net.nz/Sites/WWA,PIL_COM,Documents
+https://cohesiondemo-piritahi.intergen.net.nz/Sites/WWA,PIL_COM,Docs
+https://cohesiondemo-piritahi.intergen.net.nz/Sites/WWA,PIL_COM,TestDocumentLibrary
+https://cohesiondemo-piritahi.intergen.net.nz/Sites/WWA,PIL_COM,TestList
