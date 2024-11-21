@@ -10,6 +10,7 @@ $script:logFileFolderPath = $PSScriptRoot + "\Logs"
 $script:templateFolderPath = $PSScriptRoot + "\Templates"
 $script:logoFile = $PSScriptRoot + "\Logos\siteLogo.png" 
 $script:filePath = $PSScriptRoot + "\FoundationBuildProvisioning.csv" 
+$script:listsFilePath = $PSScriptRoot + "\FoundationBuildProvisioning_Lists.csv" 
 $script:customFields = @(
     [pscustomobject]@{InternalName='COHESION-LEGACY-ID';DisplayName='COHESION-LEGACY-ID';Type='Text';Group='*MPI Columns'}
     [pscustomobject]@{InternalName='COHESION-LEGACY-URI';DisplayName='COHESION-LEGACY-URI';Type='Note';Group='*MPI Columns'}
@@ -17,6 +18,7 @@ $script:customFields = @(
 $script:majorVersions = 500
 $script:minorVersions = 2
 $script:csvData = @()
+$script:listCsvData = @()
 
 <# FUNCTIONS #>
 
@@ -35,6 +37,7 @@ function logOutput {
 
 function ReadCsv ($filePath) {
     $script:csv = Import-Csv -Path $filePath
+    $script:listsCsv = Import-Csv -Path $listsFilePath
 }
 
 function ProvisionSite ($provBaseTemplate, $newSiteName, $newSiteShortCode, $newSiteFullUrl) {
@@ -196,8 +199,38 @@ function AssociateToHub ($newSiteFullUrl, $hubName, $hubAssoc) {
     }
 }
 
-function ShareGateCopyStructure () {
-
+function ShareGateCopyStructure ($provSourceSite, $newSiteFullUrl) {
+    try {
+        logOutput "   Copying list structure on $provShortcode..."
+        $listsRequired = $listsCsv | Where-Object {$_.SourceSite -eq $newSiteFullUrl}
+        foreach($list in $listsRequired) {
+            $provListName = $list.LibraryName
+            try {
+                logOutput "      Copying list $provListName on $provShortcode..."
+                $listStartTime = Get-Date -Format "HH:mm dd-MM-yy"
+                Copy-List -Name $provListName -SourceSite $provSourceSite -DestinationSite $newSiteFullUrl -NoContent  -NoSiteFeatures -NoWorkflows
+                $listFinishTime = Get-Date -Format "HH:mm dd-MM-yy"
+                $listDuration = New-TimeSpan -Start $listStartTime -End $listFinishTime
+                $listDurationMinutes = $listDuration.Minutes
+                logOutput "      Copied list $provListName on $provShortcode..."
+                # Write Summary to CSV File
+                $script:listCsvData += [PSCustomObject]@{
+                    SourceSite = $provSourceSite
+                    DestinationSite = $newSiteFullUrl
+                    ListName = $provListName
+                    StartTime = $listStartTime
+                    FinishTime = $listFinishTime
+                    TotalProvisioningTimeMinutes = $listDurationMinutes
+                }
+            }
+            catch {
+                logOutput "      Error copying list $provListName on $provShortcode. Error: $_"
+            }
+        }
+    }
+    catch {
+        logOutput "   Error copying list structure on $provShortcode. Error: $_"
+    }
 }
 
 function PostSharegateConfiguration () {
@@ -245,7 +278,7 @@ function PostSharegateConfiguration () {
     }
 }
 
-function ProvisionSiteFromTemplate ($provSiteName, $provShortcode, $provDesc, $provHub, $provHubAssoc, $provTemplate) {
+function ProvisionSiteFromTemplate ($provSiteName, $provShortcode, $provDesc, $provHub, $provHubAssoc, $provTemplate, $provSourceSiteUrl) {
     logOutput "# Starting provisioning for site $provShortcode..."
     $siteStartTime = Get-Date -Format "HH:mm dd-MM-yy"
 
@@ -306,7 +339,8 @@ function ProvisionSiteFromTemplate ($provSiteName, $provShortcode, $provDesc, $p
 
     AssociateToHub $provSiteFullUrl $provHub $provHubAssoc
 
-    ShareGateCopyStructure
+    # SG Copy list structure
+    ShareGateCopyStructure $provSourceSiteUrl, $provSiteFullUrl
 
     PostSharegateConfiguration
 
@@ -336,6 +370,7 @@ function ProvisionSites {
     $script:startTimestampFileName = Get-Date -Format "HH-mm-dd-MM-yy"
     $script:logFilePath = $logFileFolderPath + "\" + $startTimestampFileName + "-Foundation.txt"
     $script:csvLogPath = $logFileFolderPath + "\" + $startTimestampFileName + "-Foundation.csv"
+    $script:csvListLogPath = = $logFileFolderPath + "\" + $startTimestampFileName + "-Foundation_Lists.csv"
     createLog
 
     # Read csv
@@ -351,16 +386,18 @@ function ProvisionSites {
 
     # Provision site
     foreach ($site in $csv) {
+        $csvSourceSiteUrl = $site.SourceSiteUrl
         $csvSiteName = $site.SiteName
         $csvShortcode = $site.Shortcode
         $csvDesc = $site.Description
         $csvHub = $site.HubName
         $csvHubAssoc = $site.HubAssociation
         $csvTemplate = $site.Template
-        ProvisionSiteFromTemplate $csvSiteName $csvShortcode $csvDesc $csvHub $csvHubAssoc $csvTemplate
+        ProvisionSiteFromTemplate $csvSiteName $csvShortcode $csvDesc $csvHub $csvHubAssoc $csvTemplate $csvSourceSiteUrl
     }
 
     $csvData | Export-Csv -Path $csvLogPath
+    $listCsvData | Export-Csv -Path $csvListLogPath
 
     logOutput "### Script finished ###"
 }
