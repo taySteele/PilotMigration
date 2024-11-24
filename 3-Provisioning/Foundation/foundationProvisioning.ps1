@@ -225,7 +225,7 @@ function ShareGateCopyStructure ($provSourceSite, $newSiteFullUrl, $provShortcod
                         $Context = Get-PnPContext
                         $newList.OnQuickLaunch = $True
                         $newList.Update() 
-                        $Context.ExecuteQuery()
+                        $Context.ExecuteQuery() #making another change
                     }#>
                     logOutput "      Copied list $provListName on $provShortcode..."
                     # Write Summary to CSV File
