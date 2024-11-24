@@ -15,10 +15,11 @@ $script:customFields = @(
     [pscustomobject]@{InternalName='COHESION-LEGACY-ID';DisplayName='COHESION-LEGACY-ID';Type='Text';Group='*MPI Columns'}
     [pscustomobject]@{InternalName='COHESION-LEGACY-URI';DisplayName='COHESION-LEGACY-URI';Type='Note';Group='*MPI Columns'}
 )
-$script:majorVersions = 500
+$script:majorVersions = 50000
 $script:minorVersions = 2
 $script:csvData = @()
 $script:listCsvData = @()
+$script:winauthIndex = 29
 
 <# FUNCTIONS #>
 
@@ -203,30 +204,47 @@ function ShareGateCopyStructure ($provSourceSite, $newSiteFullUrl, $provShortcod
     try {
         logOutput "   Copying list structure on $provShortcode..."
         $listsRequired = $listsCsv | Where-Object {$_.SourceSite -eq $provSourceSite -and $_.DestinationSite -eq $provShortcode}
-        $srcSite = Connect-Site -Url $provSourceSite -UserName $sgUsername -Password  $secureStringPassword
-        $dstSite = Connect-Site -Url $newSiteFullUrl -Browser
-        foreach($list in $listsRequired) {
-            $provListName = $list.LibraryName
-            try {
-                logOutput "      Copying list $provListName on $provShortcode..."
-                $listStartTime = Get-Date -Format "HH:mm dd-MM-yy"
-                Copy-List -Name $provListName -SourceSite $srcSite -DestinationSite $dstSite -NoContent  -NoSiteFeatures -NoWorkflows
-                $listFinishTime = Get-Date -Format "HH:mm dd-MM-yy"
-                $listDuration = New-TimeSpan -Start $listStartTime -End $listFinishTime
-                $listDurationMinutes = $listDuration.Minutes
-                logOutput "      Copied list $provListName on $provShortcode..."
-                # Write Summary to CSV File
-                $script:listCsvData += [PSCustomObject]@{
-                    SourceSite = $provSourceSite
-                    DestinationSite = $newSiteFullUrl
-                    ListName = $provListName
-                    StartTime = $listStartTime
-                    FinishTime = $listFinishTime
-                    TotalProvisioningTimeMinutes = $listDurationMinutes
+        if ($listsRequired) {
+            $srcSite = Connect-Site -Url $provSourceSite -UserName $sgUsername -Password  $secureStringPassword 
+            $dstSite = Connect-Site -Url $newSiteFullUrl -UseCredentialsFrom $sgConnection
+            $provSourceSiteWinAuth = $provSourceSite.Insert($winauthIndex, "-winauth")
+            $pnpConnection = Connect-PnPOnline -Url $provSourceSiteWinAuth -Credentials $cred
+            foreach($list in $listsRequired) {
+                $provListName = $list.LibraryName
+                try {
+                    logOutput "      Copying list $provListName on $provShortcode..."
+                    $listStartTime = Get-Date
+                    $results = Copy-List -Name $provListName -SourceSite $srcSite -DestinationSite $dstSite -TaskName "$provSourceSite - $newSiteFullUrl : $provListName" -NoContent  -NoSiteFeatures -NoWorkflows
+                    $listFinishTime = Get-Date
+                    $listDuration = New-TimeSpan -Start $listStartTime -End $listFinishTime
+                    $listDurationMinutes = $listDuration.Minutes
+                    <#$srcList = Get-PnPList -Identity $provListName -Connection $pnpConnection
+                    if($srcList.OnQuickLaunch) {
+                        Connect-PnPOnline -Url $newSiteFullUrl -Interactive
+                        $newList = Get-PnPList -Identity $provListName
+                        $Context = Get-PnPContext
+                        $newList.OnQuickLaunch = $True
+                        $newList.Update() 
+                        $Context.ExecuteQuery()
+                    }#>
+                    logOutput "      Copied list $provListName on $provShortcode..."
+                    # Write Summary to CSV File
+                    $script:listCsvData += [PSCustomObject]@{
+                        SourceSite = $provSourceSite
+                        DestinationSite = $newSiteFullUrl
+                        ListName = $provListName
+                        StartTime = $listStartTime
+                        FinishTime = $listFinishTime
+                        TotalProvisioningTimeMinutes = $listDurationMinutes
+                        Result = $results.Result
+                        Successes = $results.Successes
+                        Warnings = $results.Warnings
+                        Errors = $results.Errors
+                    }
                 }
-            }
-            catch {
-                logOutput "      Error copying list $provListName on $provShortcode. Error: $_"
+                catch {
+                    logOutput "      Error copying list $provListName on $provShortcode. Error: $_"
+                }
             }
         }
     }
@@ -282,7 +300,7 @@ function PostSharegateConfiguration () {
 
 function ProvisionSiteFromTemplate ($provSiteName, $provShortcode, $provDesc, $provHub, $provHubAssoc, $provTemplate, $provSourceSiteUrl) {
     logOutput "# Starting provisioning for site $provShortcode..."
-    $siteStartTime = Get-Date -Format "HH:mm dd-MM-yy"
+    $siteStartTime = Get-Date
 
     # Request template type
     switch ($provTemplate) {
@@ -294,7 +312,7 @@ function ProvisionSiteFromTemplate ($provSiteName, $provShortcode, $provDesc, $p
         }
         "Community Site Template" {
             $baseTemplate = "TeamSite"
-            $provSiteFullUrl = $baseURL + "/Sites/" + $provShortcode
+            $provSiteFullUrl = $baseURL + "/teams/" + $provShortcode
             $provTemplatePath = $templateFolderPath + "\pilotCommunity.xml"
             $teamsEnabled = $true
         }
@@ -325,28 +343,28 @@ function ProvisionSiteFromTemplate ($provSiteName, $provShortcode, $provDesc, $p
     }
 
     # Provision site
-    ProvisionSite $baseTemplate $provSiteName $provShortcode $provSiteFullUrl
+    #ProvisionSite $baseTemplate $provSiteName $provShortcode $provSiteFullUrl
 
     # Site configuration
-    SiteConfiguration $provShortcode $provSiteFullUrl $provTemplate $provTemplatePath
+    #SiteConfiguration $provShortcode $provSiteFullUrl $provTemplate $provTemplatePath
 
     # Teamify site
     if ($teamsEnabled) {
-        TeamifySite $provSiteFullUrl
+        #TeamifySite $provSiteFullUrl
     }
 
     if ($provHub) {
-        RegisterHub $provSiteFullUrl $provHub
+        #RegisterHub $provSiteFullUrl $provHub
     }
 
-    AssociateToHub $provSiteFullUrl $provHub $provHubAssoc
+    #AssociateToHub $provSiteFullUrl $provHub $provHubAssoc
 
     # SG Copy list structure
     ShareGateCopyStructure $provSourceSiteUrl $provSiteFullUrl $provShortcode
 
-    PostSharegateConfiguration
+    #PostSharegateConfiguration
 
-    $siteFinishTime = Get-Date -Format "HH:mm dd-MM-yy"
+    $siteFinishTime = Get-Date
 
     $siteDuration = New-TimeSpan -Start $siteStartTime -End $siteFinishTime
 
@@ -372,7 +390,7 @@ function ProvisionSites {
     $script:startTimestampFileName = Get-Date -Format "HH-mm-dd-MM-yy"
     $script:logFilePath = $logFileFolderPath + "\" + $startTimestampFileName + "-Foundation.txt"
     $script:csvLogPath = $logFileFolderPath + "\" + $startTimestampFileName + "-Foundation.csv"
-    $script:csvListLogPath = = $logFileFolderPath + "\" + $startTimestampFileName + "-Foundation_Lists.csv"
+    $script:csvListLogPath = $logFileFolderPath + "\" + $startTimestampFileName + "-Foundation_Lists.csv"
     createLog
 
     # Read csv
@@ -390,7 +408,9 @@ function ProvisionSites {
     Import-Module Sharegate
     # Prompt the user to enter a password
     $script:sgUsername = "wlgc3\piritahidemoadmin"
-    $script:secureStringPassword = Read-Host -Prompt "Enter the password for $sgUserName" -AsSecureString
+    #$script:secureStringPassword = Read-Host -Prompt "Enter the password for $sgUserName" -AsSecureString
+    $script:cred = Get-Credential -UserName $sgUsername -Message 'Enter password'
+    $script:sgConnection = Connect-Site -Url $adminURL -Browser
 
     # Provision site
     foreach ($site in $csv) {
