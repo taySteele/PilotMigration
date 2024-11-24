@@ -258,7 +258,7 @@ function PostSharegateConfiguration () {
             logOutput "      Error adding legacy capture fields to $provShortcode. Error: $_"
             logOutput "   Error completing post ShareGate configuration on $provShortcode. Error: $_"
         }
-        # Versioning settings
+        # Versioning settings & fields
         try {
             logOutput "      Setting versioning settings on $provShortcode..."
             $listsLibraries = Get-PnPList | Where-Object {$_.Hidden -eq $false -and $_.Title -ne "Form Templates" -and $_.Title -ne "Site Assets" -and $_.Title -ne "Style Library" -and $_.Title -ne "Site Pages"}
