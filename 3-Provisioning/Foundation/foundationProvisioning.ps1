@@ -19,6 +19,7 @@ $script:majorVersions = 50000
 $script:minorVersions = 2
 $script:csvData = @()
 $script:listCsvData = @()
+$script:errorCsv = @()
 $script:winauthIndex = 29
 
 <# FUNCTIONS #>
@@ -66,18 +67,24 @@ function ProvisionSite ($provBaseTemplate, $newSiteName, $newSiteShortCode, $new
             logOutput "   Finished provisioning site $newSiteShortCode."
         } 
         else {
-            $script:newSite = $existingSite
+            $script:newSite = $existingSite.Url
             logOutput "   Site already exists for $newSiteShortCode"
         }
         # Connect to site
-        Connect-PnPOnline -Url $newSite.Url -Interactive -ClientId $clientId
+        Connect-PnPOnline -Url $newSite -Interactive -ClientId $clientId
     } catch {
         logOutput "   Failed to provision site $newSiteShortCode. Error: $_"
-        Exit
+        # Write Error Summary to CSV File
+        $script:errorCsv += [PSCustomObject]@{
+            SiteName = $newSiteName
+            ShortCode = $newSiteShortCode
+            Stage = "Provisioning"
+            Error = $_
+        }
     }
 }
 
-function SiteConfiguration ($newSiteShortCode, $newSite, $template, $templatePath) {
+function SiteConfiguration ($newSiteShortCode, $newSite, $template, $templatePath, $newSiteName) {
     logOutput "   Applying configuration to site $newSiteShortCode..."
     try {
         # Add admins
@@ -147,11 +154,17 @@ function SiteConfiguration ($newSiteShortCode, $newSite, $template, $templatePat
         logOutput "   Finished applying configuration to site $newSiteShortCode."
     } catch {
         logOutput "   Failed to apply configuration to site $newSiteShortCode. Error $_"
-        Exit
+        # Write Error Summary to CSV File
+        $script:errorCsv += [PSCustomObject]@{
+            SiteName = $newSiteName
+            ShortCode = $newSiteShortCode
+            Stage = "Configuration"
+            Error = $_
+        }
     }
 }
 
-function TeamifySite ($newSite) {
+function TeamifySite ($newSite, $newSiteName, $newSiteShortCode) {
     try {
         logOutput "   Associating Microsoft Team to site"
         $site = Get-PnPTenantSite -Identity $newSite
@@ -159,12 +172,18 @@ function TeamifySite ($newSite) {
         logOutput "   Microsoft Team associated to site"
     } catch {
         logOutput "   Failed to connect site to Microsoft Team. Error $_"
-        Exit
+        # Write Error Summary to CSV File
+        $script:errorCsv += [PSCustomObject]@{
+            SiteName = $newSiteName
+            ShortCode = $newSiteShortCode
+            Stage = "Teamify"
+            Error = $_
+        }
     }
     
 }
 
-function RegisterHub ($newSiteFullUrl, $hubName) {
+function RegisterHub ($newSiteFullUrl, $hubName, $newSiteName, $newSiteShortCode) {
     logOutput "   Registering $provShortcode as hub."
     try {
         $existingHub = Get-PnPHubSite | Where-Object {$_.Title -eq $hubName}
@@ -179,10 +198,17 @@ function RegisterHub ($newSiteFullUrl, $hubName) {
     }
     catch {
         logOutput "   Error registering $provShortcode as hub. Error: $_"
+        # Write Error Summary to CSV File
+        $script:errorCsv += [PSCustomObject]@{
+            SiteName = $newSiteName
+            ShortCode = $newSiteShortCode
+            Stage = "Register Hub"
+            Error = $_
+        }
     }
 }
 
-function AssociateToHub ($newSiteFullUrl, $hubName, $hubAssoc) {
+function AssociateToHub ($newSiteFullUrl, $hubName, $hubAssoc, $newSiteName, $newSiteShortCode) {
     logOutput "   Associating $provShortcode to hub."
     try {
         if ($hubName -and $hubAssoc) {
@@ -197,16 +223,23 @@ function AssociateToHub ($newSiteFullUrl, $hubName, $hubAssoc) {
     }
     catch {
         logOutput "   Error associating $provShortcode to hub. Error: $_"
+        # Write Error Summary to CSV File
+        $script:errorCsv += [PSCustomObject]@{
+            SiteName = $newSiteName
+            ShortCode = $newSiteShortCode
+            Stage = "Associate Hub"
+            Error = $_
+        }
     }
 }
 
-function ShareGateCopyStructure ($provSourceSite, $newSiteFullUrl, $provShortcode) {
+function ShareGateCopyStructure ($provSourceSite, $newSiteFullUrl, $provShortcode, $newSiteName) {
     try {
         logOutput "   Copying list structure on $provShortcode..."
         $listsRequired = $listsCsv | Where-Object {$_.SourceSite -eq $provSourceSite -and $_.DestinationSite -eq $provShortcode}
         if ($listsRequired) {
-            $srcSite = Connect-Site -Url $provSourceSite -UserName $sgUsername -Password  $secureStringPassword 
-            $dstSite = Connect-Site -Url $newSiteFullUrl -UseCredentialsFrom $sgConnection
+            #$srcSite = Connect-Site -Url $provSourceSite -UserName $sgUsername -Password  $secureStringPassword 
+            #$dstSite = Connect-Site -Url $newSiteFullUrl -UseCredentialsFrom $sgConnection
             $provSourceSiteWinAuth = $provSourceSite.Insert($winauthIndex, "-winauth")
             $pnpConnection = Connect-PnPOnline -Url $provSourceSiteWinAuth -Credentials $cred
             foreach($list in $listsRequired) {
@@ -214,19 +247,19 @@ function ShareGateCopyStructure ($provSourceSite, $newSiteFullUrl, $provShortcod
                 try {
                     logOutput "      Copying list $provListName on $provShortcode..."
                     $listStartTime = Get-Date
-                    $results = Copy-List -Name $provListName -SourceSite $srcSite -DestinationSite $dstSite -TaskName "$provSourceSite - $newSiteFullUrl : $provListName" -NoContent  -NoSiteFeatures -NoWorkflows
+                    #$results = Copy-List -Name $provListName -SourceSite $srcSite -DestinationSite $dstSite -TaskName "$provSourceSite - $newSiteFullUrl : $provListName" -NoContent  -NoSiteFeatures -NoWorkflows
                     $listFinishTime = Get-Date
                     $listDuration = New-TimeSpan -Start $listStartTime -End $listFinishTime
                     $listDurationMinutes = $listDuration.Minutes
-                    <#$srcList = Get-PnPList -Identity $provListName -Connection $pnpConnection
+                    $srcList = Get-PnPList -Identity $provListName -Connection $pnpConnection
                     if($srcList.OnQuickLaunch) {
                         Connect-PnPOnline -Url $newSiteFullUrl -Interactive
                         $newList = Get-PnPList -Identity $provListName
                         $Context = Get-PnPContext
                         $newList.OnQuickLaunch = $True
                         $newList.Update() 
-                        $Context.ExecuteQuery() #making another change
-                    }#>
+                        $Context.ExecuteQuery()
+                    }
                     logOutput "      Copied list $provListName on $provShortcode..."
                     # Write Summary to CSV File
                     $script:listCsvData += [PSCustomObject]@{
@@ -244,6 +277,13 @@ function ShareGateCopyStructure ($provSourceSite, $newSiteFullUrl, $provShortcod
                 }
                 catch {
                     logOutput "      Error copying list $provListName on $provShortcode. Error: $_"
+                    # Write Error Summary to CSV File
+                    $script:errorCsv += [PSCustomObject]@{
+                        SiteName = $newSiteName
+                        ShortCode = $provShortcode
+                        Stage = "ShareGate"
+                        Error = $_
+                    }
                 }
             }
         }
@@ -253,7 +293,7 @@ function ShareGateCopyStructure ($provSourceSite, $newSiteFullUrl, $provShortcod
     }
 }
 
-function PostSharegateConfiguration () {
+function PostSharegateConfiguration ($newSiteName, $newSiteShortCode) {
     try {
         logOutput "   Applying post ShareGate configuration to $provShortcode..."
         # Additional custom fields
@@ -275,26 +315,95 @@ function PostSharegateConfiguration () {
         catch {
             logOutput "      Error adding legacy capture fields to $provShortcode. Error: $_"
             logOutput "   Error completing post ShareGate configuration on $provShortcode. Error: $_"
+            # Write Error Summary to CSV File
+            $script:errorCsv += [PSCustomObject]@{
+                SiteName = $newSiteName
+                ShortCode = $newSiteShortCode
+                Stage = "Legacy Fields"
+                Error = $_
+            }
         }
         # Versioning settings & fields
         try {
             logOutput "      Setting versioning settings on $provShortcode..."
             $listsLibraries = Get-PnPList | Where-Object {$_.Hidden -eq $false -and $_.Title -ne "Form Templates" -and $_.Title -ne "Site Assets" -and $_.Title -ne "Style Library" -and $_.Title -ne "Site Pages"}
             foreach($list in $listsLibraries) {
+                $listName = $list.Title
+                # Version settings
                 if ($list.BaseType -eq "DocumentLibrary") {
-                    Set-PnPList -Identity $list -MajorVersions 500 -MinorVersions 2 -EnableVersioning $True -EnableMinorVersions $True
+                    logOutput "         Updating versioning settings on $listName..."
+                    try {
+                        Set-PnPList -Identity $list -MajorVersions $majorVersions -MinorVersions $minorVersions -EnableVersioning $True -EnableMinorVersions $True
+                        logOutput "         Updated versioning settings on $listName."
+                    }
+                    catch {
+                        logOutput "         Failed to update versioning settings on $listName. Error: $_"
+                        # Write Error Summary to CSV File
+                        $script:errorCsv += [PSCustomObject]@{
+                            SiteName = $newSiteName
+                            ShortCode = $newSiteShortCode
+                            Stage = "Versioning Settings"
+                            Error = $_
+                        }
+                    }
                 } elseif ($list.BaseType -eq "GenericList") {
-                    Set-PnPList -Identity $list -MajorVersions 500 -EnableVersioning $True
+                    logOutput "         Updating versioning settings on $listName..."
+                    try {
+                        Set-PnPList -Identity $list -MajorVersions $majorVersions -EnableVersioning $True
+                        logOutput "         Updated versioning settings on $listName."
+                    }
+                    catch {
+                        logOutput "         Failed to update versioning settings on $listName. Error: $_"
+                        # Write Error Summary to CSV File
+                        $script:errorCsv += [PSCustomObject]@{
+                            SiteName = $newSiteName
+                            ShortCode = $newSiteShortCode
+                            Stage = "Versioning Settings"
+                            Error = $_
+                        }
+                    }
+                }
+                # Legacy Fields
+                logOutput "         Adding legacy capture fields to $listName..."
+                foreach($field in $customFields) {
+                    $fieldFound = Get-PnPField -Identity $field.InternalName -ErrorAction SilentlyContinue
+                    $fieldName = $field.DisplayName
+                    if(!$fieldFound) {
+                        try {
+                            Add-PnPField -List $list -Field $fieldName
+                            logOutput "         Added field $fieldName to $listName."
+                        }
+                        catch {
+                            logOutput "         Failed to add field $fieldName to $listName."
+                        }
+                    }
+                    else {
+                        logOutput "         Field $fieldName already exists on $listName."
+                    }
                 }
             }
         }
         catch {
-            logOutput "      Error setting versioning settings on $provShortcode. Error: $_"
+            logOutput "      Error setting versioning settings or fields on $provShortcode. Error: $_"
             logOutput "   Error completing post ShareGate configuration on $provShortcode. Error: $_"
+            # Write Error Summary to CSV File
+            $script:errorCsv += [PSCustomObject]@{
+                SiteName = $newSiteName
+                ShortCode = $newSiteShortCode
+                Stage = "Post SG Configuration"
+                Error = $_
+            }
         }
     }
     catch {
         logOutput "   Error completing post ShareGate configuration on $provShortcode. Error: $_"
+        # Write Error Summary to CSV File
+        $script:errorCsv += [PSCustomObject]@{
+            SiteName = $newSiteName
+            ShortCode = $newSiteShortCode
+            Stage = "Post SG Configuration"
+            Error = $_
+        }
     }
 }
 
@@ -343,26 +452,26 @@ function ProvisionSiteFromTemplate ($provSiteName, $provShortcode, $provDesc, $p
     }
 
     # Provision site
-    #ProvisionSite $baseTemplate $provSiteName $provShortcode $provSiteFullUrl
+    ProvisionSite $baseTemplate $provSiteName $provShortcode $provSiteFullUrl
 
     # Site configuration
-    #SiteConfiguration $provShortcode $provSiteFullUrl $provTemplate $provTemplatePath
+    #SiteConfiguration $provShortcode $provSiteFullUrl $provTemplate $provTemplatePath $provSiteName
 
     # Teamify site
     if ($teamsEnabled) {
-        #TeamifySite $provSiteFullUrl
+        #TeamifySite $provSiteFullUrl $provSiteName $provShortcode
     }
 
     if ($provHub) {
-        #RegisterHub $provSiteFullUrl $provHub
+        #RegisterHub $provSiteFullUrl $provHub $provSiteName $provShortcode
     }
 
-    #AssociateToHub $provSiteFullUrl $provHub $provHubAssoc
+    #AssociateToHub $provSiteFullUrl $provHub $provHubAssoc $provSiteName $provShortcode
 
     # SG Copy list structure
-    ShareGateCopyStructure $provSourceSiteUrl $provSiteFullUrl $provShortcode
+    ShareGateCopyStructure $provSourceSiteUrl $provSiteFullUrl $provShortcode $provSiteName
 
-    #PostSharegateConfiguration
+    PostSharegateConfiguration $provSiteName $provShortcode
 
     $siteFinishTime = Get-Date
 
@@ -391,6 +500,7 @@ function ProvisionSites {
     $script:logFilePath = $logFileFolderPath + "\" + $startTimestampFileName + "-Foundation.txt"
     $script:csvLogPath = $logFileFolderPath + "\" + $startTimestampFileName + "-Foundation.csv"
     $script:csvListLogPath = $logFileFolderPath + "\" + $startTimestampFileName + "-Foundation_Lists.csv"
+    $script:csvErrorLogPath = $logFileFolderPath + "\" + $startTimestampFileName + "Foundation_Errors.csv"
     createLog
 
     # Read csv
@@ -405,12 +515,13 @@ function ProvisionSites {
     }
 
     # Prepare SG
-    Import-Module Sharegate
+    #Import-Module Sharegate
     # Prompt the user to enter a password
     $script:sgUsername = "wlgc3\piritahidemoadmin"
-    #$script:secureStringPassword = Read-Host -Prompt "Enter the password for $sgUserName" -AsSecureString
+    $script:secureStringPassword = Read-Host -Prompt "Enter the password for $sgUserName" -AsSecureString
     $script:cred = Get-Credential -UserName $sgUsername -Message 'Enter password'
-    $script:sgConnection = Connect-Site -Url $adminURL -Browser
+    #$script:sgConnection = Connect-Site -Url $adminURL -Browser
+    #>
 
     # Provision site
     foreach ($site in $csv) {
@@ -426,6 +537,7 @@ function ProvisionSites {
 
     $csvData | Export-Csv -Path $csvLogPath
     $listCsvData | Export-Csv -Path $csvListLogPath
+    $errorCsv | Export-Csv -Path $csvErrorLogPath
 
     logOutput "### Script finished ###"
 }

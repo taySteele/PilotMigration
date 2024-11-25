@@ -1,8 +1,3 @@
 SourceSiteUrl,SiteName,Shortcode,Description,HubName,HubAssociation,Template
-https://cohesiondemo-piritahi.intergen.net.nz/Sites/WWA,Pilot Communities,PIL_COM,,Communities Pilot Hub,,Hub Template
-https://www.google.com,Pilot Communities Second Hub,PIL_COM_SEC,"Welcome to Organisational Communities
-
-This page contains sites for the various Organisational Communities at MPI.",Pilot Communities Second Hub,Communities Pilot Hub,Hub Template
-https://www.google.com,Pilot Communities Site,PIL_COM_SEC_SITE,"Welcome to Records Reference Group
-
-Documentation pertaining to the Records Reference Group.",,Pilot Communities Second Hub,Community Site Template
+https://cohesiondemo-piritahi.intergen.net.nz/Sites/WWA,Script Test Site 02,SCR_HUB_SITE_04,,,Script Test Hub,Community Site Template
+https://cohesiondemo-piritahi.intergen.net.nz/Sites/WWA,Script Test Site 03,SCR_HUB_SITE_05,,,Script Test Hub,Community Site Template

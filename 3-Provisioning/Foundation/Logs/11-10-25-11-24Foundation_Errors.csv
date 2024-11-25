@@ -1,0 +1,4 @@
+"SiteName","ShortCode","Stage","Error"
+"Script Test Site 03","SCR_HUB_SITE_0_)(*&^%$","Configuration","The site url https://vfogonline.sharepoint.com/teams/SCR_HUB_SITE_0_)(*&^%$ contains the reserved character '*' at index 17."
+"Script Test Site 03","SCR_HUB_SITE_0_)(*&^%$","Teamify","The site url https://vfogonline.sharepoint.com/teams/SCR_HUB_SITE_0_)(*&^%$ contains the reserved character '*' at index 17."
+"Script Test Site 03","SCR_HUB_SITE_0_)(*&^%$","Associate Hub","The passed configuration 'https://vfogonline.sharepoint.com/Sites/SCR_HUB' does not exist"

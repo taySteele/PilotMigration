@@ -1,5 +1,9 @@
-SourceSite,DestinationSite,LibraryName
-https://cohesiondemo-piritahi.intergen.net.nz/Sites/WWA,PIL_COM_SEC,Documents
-https://cohesiondemo-piritahi.intergen.net.nz/Sites/WWA,PIL_COM_SEC_SITE,Docs
-https://cohesiondemo-piritahi.intergen.net.nz/Sites/WWA,PIL_COM_SEC_SITE,TestDocumentLibrary
-https://cohesiondemo-piritahi.intergen.net.nz/Sites/WWA,PIL_COM,TestList
+SourceSite,DestinationSite,LibraryName,QuickLaunch
+https://cohesiondemo-piritahi.intergen.net.nz/Sites/WWA,SCR_HUB_SITE_04,Documents,TRUE
+https://cohesiondemo-piritahi.intergen.net.nz/Sites/WWA,SCR_HUB_SITE_04,Docs,TRUE
+https://cohesiondemo-piritahi.intergen.net.nz/Sites/WWA,SCR_HUB_SITE_04,TestDocumentLibrary,FALSE
+https://cohesiondemo-piritahi.intergen.net.nz/Sites/WWA,SCR_HUB_SITE_04,TestList,FALSE
+https://cohesiondemo-piritahi.intergen.net.nz/Sites/WWA,SCR_HUB_SITE_05,Documents,TRUE
+https://cohesiondemo-piritahi.intergen.net.nz/Sites/WWA,SCR_HUB_SITE_05,Docs,TRUE
+https://cohesiondemo-piritahi.intergen.net.nz/Sites/WWA,SCR_HUB_SITE_05,TestDocumentLibrary,FALSE
+https://cohesiondemo-piritahi.intergen.net.nz/Sites/WWA,SCR_HUB_SITE_05,TestList,FALSE
