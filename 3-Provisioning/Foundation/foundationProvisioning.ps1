@@ -516,7 +516,7 @@ function ProvisionSites {
 
     # Prepare SG
     #Import-Module Sharegate
-    # Prompt the user to enter a password
+    # Prompt the user to enter a password 
     $script:sgUsername = "wlgc3\piritahidemoadmin"
     $script:secureStringPassword = Read-Host -Prompt "Enter the password for $sgUserName" -AsSecureString
     $script:cred = Get-Credential -UserName $sgUsername -Message 'Enter password'
